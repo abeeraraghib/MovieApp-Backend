@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { Movie } from '../movies/movie.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
 
-
 @Injectable()
 export class MoviesService {
   constructor(
@@ -28,6 +27,12 @@ export class MoviesService {
     }
     return movie;
   }
+
+  async findByGenre(genre: string): Promise<Movie[]> {
+  return this.movieRepository.find({
+    where: { genre },
+  });
+}
 
   async update(id: number, updateMovieDto: CreateMovieDto): Promise<Movie> {
     await this.movieRepository.update(id, updateMovieDto);

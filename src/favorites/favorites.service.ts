@@ -16,22 +16,21 @@ export class FavoritesService {
     private readonly movieRepository: Repository<Movie>,
   ) {}
 
-  // Get all favorites for a specific user
-  async getFavorites(userId: number): Promise<Favourite[]> {
-    return this.favoriteRepository.find({
+  async getFavorites(userId: number): Promise<Movie[]> {
+    const favorites = await this.favoriteRepository.find({
       where: { user: { id: userId } },
       relations: ['movie'],
     });
+
+    return favorites.map((fav) => fav.movie);
   }
 
-  // 🔹 Get all favorites across all users (for admin)
   async getAllFavorites(): Promise<Favourite[]> {
     return this.favoriteRepository.find({
       relations: ['user', 'movie'],
     });
   }
 
-  // Add a favorite
   async addFavorite(userId: number, movieId: number): Promise<Favourite> {
     const user = await this.userRepository.findOneBy({ id: userId });
     const movie = await this.movieRepository.findOneBy({ id: movieId });
@@ -42,6 +41,7 @@ export class FavoritesService {
 
     const existing = await this.favoriteRepository.findOne({
       where: { user: { id: userId }, movie: { id: movieId } },
+      relations: ['user', 'movie'],
     });
     if (existing) return existing;
 
@@ -49,11 +49,12 @@ export class FavoritesService {
     return this.favoriteRepository.save(favorite);
   }
 
-  // Remove a favorite
   async removeFavorite(userId: number, movieId: number) {
     const fav = await this.favoriteRepository.findOne({
       where: { user: { id: userId }, movie: { id: movieId } },
+      relations: ['user', 'movie'],
     });
+
     if (!fav) return { message: 'Favorite not found' };
 
     await this.favoriteRepository.remove(fav);
