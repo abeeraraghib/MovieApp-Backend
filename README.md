@@ -35,17 +35,6 @@ This is the **backend API** for the Movie App. It provides authentication, movie
 ## Install dependencies
 npm install
 
-## Environment setup
-
-Create a .env file in the project root:
-
-- DB_HOST=localhost
-- DB_PORT=5432
-- DB_USERNAME=postgres
-- DB_PASSWORD=pisti900
-- DB_NAME=movies_dev
-- PORT=5000
--SEKRET_KEY=b10fcf49d85fc94a273050366cbc877b8d025b1af203706ad0e548f62c14137f970f1768108adcb0818138a7db3aac639cdc061495f9f50ea3686cce9240fadf
 
 ## Start the server
 
