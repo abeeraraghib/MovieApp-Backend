@@ -1,98 +1,236 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🎬 Movie App Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is the backend API for the Movie App, built with NestJS and TypeORM. It handles user authentication, movie management (CRUD), and serves data to the frontend.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+🚀 Features
 
-## Description
+- User registration and login (JWT-based authentication)
+- CRUD operations for movies
+- Search movies by title or genre
+- Filter movies by categories
+- Manage favorite movies
+- RESTful API with structured routes
+- Error handling and validation
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+🛠 Tech Stack
 
-## Project setup
+- Backend Framework: NestJS
+- Database: PostgreSQL 
+- Authentication: JWT
+- Environment Management: dotenv
+- Hosting: Local
 
-```bash
-$ npm install
+🛠 Base URL
+
+```
+http://localhost:5000
 ```
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## **Auth / Users Endpoints**
 
-# production mode
-$ npm run start:prod
+### **Register User**
+
+* **POST** `/users/register-user`
+* **Body:**
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
 ```
 
-## Run tests
+* **Response:**
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
 ```
 
-## Deployment
+### **Get All Users**
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+* **GET** `/users/get-all-users`
+* **Response:**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```json
+[
+  { "id": 1, "name": "John Doe", "email": "john@example.com" }
+]
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### **Get User by ID**
 
-## Resources
+* **GET** `/users/find-one/:id`
+* **Response:**
 
-Check out a few resources that may come in handy when working with NestJS:
+```json
+{ "id": 1, "name": "John Doe", "email": "john@example.com" }
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### **Update User**
 
-## Support
+* **PATCH** `/users/update/:id`
+* **Body:**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```json
+{ "name": "John Updated", "email": "johnupdated@example.com" }
+```
 
-## Stay in touch
+* **Response:**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```json
+{ "id": 1, "name": "John Updated", "email": "johnupdated@example.com" }
+```
 
-## License
+### **Delete User**
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+* **DELETE** `/users/delete/:id`
+* **Response:**
+
+```json
+{ "message": "User deleted successfully" }
+```
+
+### **Get Profile (Logged-in User)**
+
+* **GET** `/users/profile/me`
+* **Headers:** `Authorization: Bearer <JWT_TOKEN>`
+* **Response:**
+
+```json
+{ "id": 1, "name": "John Doe", "email": "john@example.com" }
+```
+
+---
+
+## **Movies Endpoints**
+
+### **Create Movie**
+
+* **POST** `/movies/movies`
+* **Body:**
+
+```json
+{
+  "title": "Inception",
+  "genre": "Sci-Fi",
+  "description": "A mind-bending thriller",
+  "releaseDate": "2010-07-16"
+}
+```
+
+* **Response:**
+
+```json
+{ "id": 1, "title": "Inception", "genre": "Sci-Fi" }
+```
+
+### **Get All Movies**
+
+* **GET** `/movies/get-all-movies`
+* **Response:** Array of movies.
+
+### **Get Movies by Genre**
+
+* **GET** `/movies/genres/:genre`
+* **Response:** Array of movies matching the genre.
+
+### **Get Movie by ID**
+
+* **GET** `/movies/findOne/:id`
+* **Response:** Movie object.
+
+### **Update Movie**
+
+* **PATCH** `/movies/update/:id`
+* **Body:** Movie fields to update.
+* **Response:** Updated movie object.
+
+### **Delete Movie**
+
+* **DELETE** `/movies/delete/:id`
+* **Response:** Confirmation message.
+
+---
+
+## **Favorites Endpoints**
+
+### **Get All Favorites**
+
+* **GET** `/favorites`
+* **Response:** Array of all favorites.
+
+### **Get User Favorites**
+
+* **GET** `/favorites/:userId`
+* **Response:** Array of favorite movies for that user.
+
+### **Add Favorite**
+
+* **POST** `/favorites/add`
+* **Body:**
+
+```json
+{ "userId": 1, "movieId": 5 }
+```
+
+* **Response:**
+
+```json
+{ "message": "Movie added to favorites" }
+```
+
+### **Remove Favorite**
+
+* **DELETE** `/favorites/remove`
+* **Body:**
+
+```json
+{ "userId": 1, "movieId": 5 }
+```
+
+* **Response:**
+
+```json
+{ "message": "Movie removed from favorites" }
+```
+
+---
+
+## **Mail Endpoints**
+
+### **Send Email**
+
+* **POST** `/mail/send`
+* **Body:**
+
+```json
+{
+  "to": "user@example.com",
+  "subject": "Hello from Movie App",
+  "text": "This is a test email."
+}
+```
+
+* **Response:**
+
+```json
+{ "message": "Email sent successfully!" }
+```
+
+---
+
+## **Notes**
+
+* JWT authentication is required for protected routes (like `/users/profile/me`).
+* Use **Postman** to test API endpoints.
+* All IDs in endpoints are integers.
+
+
