@@ -1,13 +1,12 @@
 import 'dotenv/config';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
-  url: process.env.DATABASE_URL, // ✅ Use single connection string
-  entities: ['dist/**/*.entity{.js,.ts}'],
-  synchronize: true, // ✅ For development only
-  ssl: true
+  url: process.env.DATABASE_URL,
+  entities: ['dist/**/*.entity.js'],
+  synchronize: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
-
-const dataSource = new DataSource(dataSourceOptions);
-export default dataSource;
