@@ -11,7 +11,9 @@ import { MoviesModule } from './movies/movies.module';
    app.useGlobalPipes(new ValidationPipe());
    app.enableCors({
      origin: [
-       'http://localhost:5173'
+       'http://localhost:5173',
+       'http://unique-mermaid-702034.netlify.app'
+
      ],
      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
      allowedHeaders: ['Content-Type', 'Authorization'],
