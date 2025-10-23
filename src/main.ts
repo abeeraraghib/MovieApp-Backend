@@ -11,8 +11,8 @@ import { MoviesModule } from './movies/movies.module';
    app.useGlobalPipes(new ValidationPipe());
    app.enableCors({
      origin: [
-       'http://localhost:5173',
-       'http://unique-mermaid-702034.netlify.app'
+       //'http://localhost:5173',
+       'http://https://verdant-queijadas-04ecae.netlify.app/'
 
      ],
      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -47,7 +47,7 @@ import { MoviesModule } from './movies/movies.module';
  
    const PORT = 5000;
    await app.listen(PORT, () => {
-     Logger.log('[BaseUrl/api] Swagger Documentation Url');
+     Logger.log(`🚀 Server running on port ${PORT}`);
    });
  }
  
