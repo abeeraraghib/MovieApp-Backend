@@ -12,7 +12,7 @@ import { MoviesModule } from './movies/movies.module';
    app.enableCors({
      origin: [
        //'http://localhost:5173',
-       'http://https://verdant-queijadas-04ecae.netlify.app/'
+       'https://https://verdant-queijadas-04ecae.netlify.app/'
 
      ],
      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -45,7 +45,7 @@ import { MoviesModule } from './movies/movies.module';
   )
    SwaggerModule.setup('/', app, document);
  
-   const PORT = 5000;
+   const PORT = parseInt(process.env.PORT ?? '5000', 10);
    await app.listen(PORT, () => {
      Logger.log(`🚀 Server running on port ${PORT}`);
    });
